@@ -5,7 +5,7 @@
 // @match https://github.com/*/issues/*
 // @match https://github.com/*/pull/*
 // @description Allows to configure what to hide/show in github issue activity log and focus on things you really needed.
-// @source TODO
+// @source https://github.com/pavelburov/github-issue-activity-log-filter-user-js/raw/master/github-issue-activity-log-filter.user.js
 // @author Pavel Burov <burovpavel@gmail.com>
 // @require http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
 // @require https://openuserjs.org/src/libs/sizzle/GM_config.js
