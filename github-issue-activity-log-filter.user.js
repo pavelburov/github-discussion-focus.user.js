@@ -16,7 +16,7 @@
 
 /*
 
-Allows to configure what to hide/show in github issue activity log and focus on things you really needed.
+Allows to configure what to show/hide in github issue activity log and focus on things you really needed.
 Use tampermonkey menu to configure (refresh page F5 after configuration changes)
 
 Supported types:
