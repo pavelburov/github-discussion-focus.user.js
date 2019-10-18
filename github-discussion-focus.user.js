@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name github discussion focus
 // @namespace pavelburov
-// @version 1.0.0
+// @version 2.0.0
 // @match https://github.com/*/issues/*
 // @match https://github.com/*/pull/*
 // @description Allows to configure what to show/hide in github issue activity log and focus on things you really needed.
@@ -19,59 +19,28 @@
 Allows to configure what to show/hide in github issue activity log and focus on things you really needed.
 Use tampermonkey menu to configure (refresh page F5 after configuration changes)
 
-Supported types:
-# assignment
-discussion-item-assigned
-discussion-item-unassigned
-
-# labels
-discussion-item-labeled
-discussion-item-unlabeled
-
-# project
-discussion-item-added_to_project
-discussion-item-removed_from_project
-discussion-item-moved_columns_in_project
-
-# commits
-discussion-commits
-
-# milestone
-discussion-item-milestoned
-discussion-item-demilestoned
-
-# review
-discussion-item-review_requested
-discussion-item-review_request_removed
-
-# comment
-discussion-item-comment_deleted
-
-# other
-discussion-item-renamed
-
 */
 
-const discussionItemTypes = [
-  'discussion-item-assigned',
-  'discussion-item-unassigned',
-  'discussion-item-labeled',
-  'discussion-item-unlabeled',
-  'discussion-item-added_to_project',
-  'discussion-item-removed_from_project',
-  'discussion-item-moved_columns_in_project',
-  'discussion-commits',
-  'discussion-item-milestoned',
-  'discussion-item-demilestoned',
-  'discussion-item-review_requested',
-  'discussion-item-review_request_removed',
-  'discussion-item-comment_deleted',
-  'discussion-item-renamed',
+/*
+
+Definition object structure:
+* id - unique id and github icon name
+* label - text to show on configuration UI
+
+*/
+const discussionItemsDefinitions = [
+  { id: 'person', label: 'assigned, unassigned' },
+  { id: 'tag', label: 'labeled, unlabeled' },
+  { id: 'project', label: 'added_to_project, removed_from_project, moved_columns_in_project' },
+  { id: 'milestone', label: 'milestoned, demilestoned' },
+  { id: 'eye', label: 'review_requested, review_request_removed' },
+  { id: 'pencil', label: 'renamed' },
+  { id: 'bookmark', label: 'referenced' },
+  // 'discussion-commits',
+  // 'discussion-item-comment_deleted',
 ];
 
-const createConfigItem = function(name) {
-  var label = name.replace('discussion-item-', '');
-
+const createConfigItem = function(label) {
   return {
     'label': label,
     'type': 'checkbox',
@@ -81,8 +50,8 @@ const createConfigItem = function(name) {
 
 var configFields = {};
 
-discussionItemTypes.forEach(function(element) {
-  configFields[element] = createConfigItem(element);
+discussionItemsDefinitions.forEach(function(element) {
+  configFields[element.id] = createConfigItem(element.label);
 });
 
 GM_config.init({
@@ -97,9 +66,11 @@ function openConfiguration() {
 
 GM_registerMenuCommand("Configure", openConfiguration);
 
-var applyConfig = function(type) {
-  var configValue = GM_config.get(type);
-  var discussionItems = $('.discussion-item.' + type);
+var applyConfig = function(obj) {
+  var configValue = GM_config.get(obj.id);
+  var svgSelector = "svg.octicon-" + obj.id;
+
+  var discussionItems = $(svgSelector).closest(".TimelineItem-badge").closest(".TimelineItem");
 
   if (configValue) {
     discussionItems.show();
@@ -111,7 +82,7 @@ var applyConfig = function(type) {
 (function() {
   'use strict';
 
-  discussionItemTypes.forEach(function(element) {
+  discussionItemsDefinitions.forEach(function(element) {
     applyConfig(element);
   });
 
