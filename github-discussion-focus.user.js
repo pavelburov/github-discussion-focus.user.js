@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name github discussion focus
 // @namespace pavelburov
-// @version 2.0.0
+// @version 2.0.1
 // @match https://github.com/*/issues/*
 // @match https://github.com/*/pull/*
-// @description Allows to configure what to show/hide in github issue activity log and focus on things you really needed.
+// @description Helps to focus on things you needed. Allows to configure what to show/hide in github issue activity log.
 // @source https://github.com/pavelburov/github-discussion-focus.user.js/raw/master/github-discussion-focus.user.js
 // @author Pavel Burov <burovpavel@gmail.com>
 // @require http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
