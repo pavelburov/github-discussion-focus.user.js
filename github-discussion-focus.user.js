@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name github discussion focus
 // @namespace pavelburov
-// @version 2.0.1
+// @version 2.0.2
 // @match https://github.com/*/issues/*
 // @match https://github.com/*/pull/*
 // @description Helps to focus on things you needed. Allows to configure what to show/hide in github issue activity log.
@@ -35,7 +35,7 @@ const discussionItemsDefinitions = [
   { id: 'milestone', label: 'milestoned, demilestoned' },
   { id: 'eye', label: 'review_requested, review_request_removed' },
   { id: 'pencil', label: 'renamed' },
-  { id: 'bookmark', label: 'referenced' },
+  { id: 'cross-reference', label: 'referenced' },
   // 'discussion-commits',
   // 'discussion-item-comment_deleted',
 ];
